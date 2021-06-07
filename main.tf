@@ -1,10 +1,11 @@
 resource "random_password" "external_id" {
-  count  = var.external_id_override != "" ? 0 : 1
-  length = 30
+  count   = var.external_id_override != "" ? 0 : 1
+  special = false
+  length  = 30
 }
 
 locals {
-  external_id = var.external_id_override != "" ? var.external_id_override : random_password.external_id[0].id
+  external_id = var.external_id_override != "" ? var.external_id_override : random_password.external_id[0].result
 }
 
 resource "aws_iam_policy" "this" {
@@ -27,7 +28,7 @@ resource "aws_iam_role" "this" {
   name_prefix = "grid-cloud"
   assume_role_policy = jsonencode({
     Statement = flatten([
-      {
+      [{
         Action = "sts:AssumeRole"
         Effect = "Allow"
         Principal = {
@@ -49,8 +50,8 @@ resource "aws_iam_role" "this" {
         Principal = {
           AWS = var.extra_assume_role_without_external_id_arn
         }
-      }] : [],
-    )
+      }] : []
+    ]),
     Version = "2012-10-17"
   })
 }
