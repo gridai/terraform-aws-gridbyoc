@@ -17,6 +17,7 @@ resource "aws_iam_policy" "this" {
       Action = [
         "eks:*",
         "ecr:*",
+        "events:*"
       ]
       Effect   = "Allow"
       Resource = "*"
@@ -72,7 +73,6 @@ resource "aws_iam_role_policy_attachment" "this" {
     "arn:aws:iam::aws:policy/AmazonSQSFullAccess",
     "arn:aws:iam::aws:policy/AmazonVPCFullAccess",
     "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess",
-    "arn:aws:iam::aws:policy/CloudWatchFullAccess",
     "arn:aws:iam::aws:policy/IAMFullAccess",
   ])
   policy_arn = each.value
