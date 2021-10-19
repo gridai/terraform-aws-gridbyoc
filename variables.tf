@@ -22,3 +22,8 @@ variable "extra_assume_role_without_external_id_arn" {
   default     = []
   description = "[Advance]\n[DANGEROUS]\nAny extra AWS Principal who can assume this role without external ID"
 }
+
+variable "role_name" {
+  type = string
+  default = null
+}

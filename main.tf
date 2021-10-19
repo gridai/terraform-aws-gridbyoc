@@ -27,7 +27,9 @@ resource "aws_iam_policy" "this" {
 }
 
 resource "aws_iam_role" "this" {
-  name_prefix = "grid-cloud"
+  name_prefix = var.role_name != null ? null : "grid-cloud"
+  name = var.role_name
+
   max_session_duration = 12 * 3600
   assume_role_policy = jsonencode({
     Statement = flatten([
