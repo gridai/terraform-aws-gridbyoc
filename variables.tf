@@ -24,6 +24,6 @@ variable "extra_assume_role_without_external_id_arn" {
 }
 
 variable "role_name" {
-  type = string
+  type    = string
   default = null
 }
