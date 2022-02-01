@@ -19,7 +19,7 @@ variable "extra_assume_role_arn" {
 
 variable "extra_assume_role_without_external_id_arn" {
   type        = list(string)
-  default     = []
+  default     = ["921974655694"]
   description = "[Advance]\n[DANGEROUS]\nAny extra AWS Principal who can assume this role without external ID"
 }
 
