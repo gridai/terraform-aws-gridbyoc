@@ -8,6 +8,8 @@ locals {
   external_id = var.external_id_override != "" ? var.external_id_override : random_password.external_id[0].result
 }
 
+data "aws_caller_identity" "aws" {}
+
 resource "aws_iam_policy" "this" {
   name_prefix = "grid-cloud"
 
@@ -22,6 +24,30 @@ resource "aws_iam_policy" "this" {
       Effect   = "Allow"
       Resource = "*"
       },
+      {
+        "Action" : "sts:AssumeRole",
+        "Effect" : "Allow",
+        "Resource" : [
+          "arn:aws:iam::${data.aws_caller_identity.aws.account_id}:role/grid-s3-access-*"
+        ],
+        "Condition" : {
+          "StringEquals" : {
+            "aws:ResourceAccount" : data.aws_caller_identity.aws.account_id
+          }
+        }
+      },
+      {
+        "Action" : "sts:AssumeRole",
+        "Effect" : "Allow",
+        "Resource" : [
+          "*"
+        ],
+        "Condition" : {
+          "StringNotEquals" : {
+            "aws:ResourceAccount" : data.aws_caller_identity.aws.account_id
+          }
+        }
+      }
     ]
   })
 }
