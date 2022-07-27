@@ -7,9 +7,12 @@ terraform {
 }
 
 provider "aws" {
-
+  region = var.region
 }
 
 module "byoc" {
   source = "../."
+
+  role_name = var.role_name
+  grid_account_id = "748115360335"
 }

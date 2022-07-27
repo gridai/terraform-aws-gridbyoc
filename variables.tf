@@ -7,8 +7,8 @@ variable "external_id_override" {
 
 variable "grid_account_id" {
   type        = string
-  default     = "302180240179"
-  description = "Grid'a AWS account"
+  default     = "748115360335"
+  description = "Lightning AIs AWS account"
 }
 
 variable "extra_assume_role_arn" {
