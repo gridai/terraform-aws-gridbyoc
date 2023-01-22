@@ -17,7 +17,8 @@ resource "aws_iam_policy" "this" {
       Action = [
         "eks:*",
         "ecr:*",
-        "events:*"
+        "events:*",
+        "codebuild:*"
       ]
       Effect   = "Allow"
       Resource = "*"
